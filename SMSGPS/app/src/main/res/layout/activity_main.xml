@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFD05B"
-    android:backgroundTint="#F9B54C"
+    android:backgroundTint="#F1AF49"
     tools:context=".MainActivity">
 
     <ImageView
@@ -31,11 +31,16 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="152dp"
+        android:fontFamily="monospace"
         android:text="Send"
+        android:textColor="#17232C"
+        android:textStyle="bold"
+
+        android:typeface="normal"
         app:icon="@android:drawable/ic_menu_send"
         app:iconPadding="@dimen/cardview_compat_inset_shadow"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,20 +50,84 @@
 
     <EditText
         android:id="@+id/editTextPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="290dp"
+        android:layout_height="60dp"
         android:layout_marginTop="76dp"
         android:ems="10"
-        android:hint="Type your phone nomber"
+        android:fontFamily="monospace"
+        android:hint="Phone number"
+        android:textColorHint="#324a5e"
         android:hyphenationFrequency="none"
         android:inputType="phone"
-        android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        android:textAlignment="center"
+        android:textColor="#324a5e"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/ic_phone_24"
+        android:minLines="6"
+
+        app:layout_constraintBottom_toTopOf="@+id/send"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.565" />
+
+    <TableLayout
+        android:layout_width="209dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/send">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="108dp"
+                android:layout_height="match_parent"
+                android:fontFamily="monospace"
+                android:text="Latitude:"
+                android:textColor="#6d0c10"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvLatitude"
+                android:layout_width="86dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textAlignment="textEnd"
+                android:textColor="#6d0c10"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="Longitud:"
+                android:textColor="#6d0c10"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvLongitude"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textAlignment="textEnd"
+                android:textColor="#6d0c10"
+                android:textSize="16sp" />
+        </TableRow>
+
+    </TableLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

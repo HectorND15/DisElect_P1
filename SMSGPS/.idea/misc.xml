@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2165" />
+        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.2165" />
+        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2165" />
+        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_phone_24.xml" value="0.2165" />
+        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/layout/activity_main.xml" value="0.4120734908136483" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
