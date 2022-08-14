@@ -2,12 +2,10 @@ package com.example.sms_gps;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.READ_PHONE_NUMBERS;
-import static android.Manifest.permission.READ_PHONE_STATE;
 import static android.Manifest.permission.READ_SMS;
 import static android.Manifest.permission.SEND_SMS;
+import static android.content.ContentValues.TAG;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -26,6 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
 import java.text.DecimalFormat;
 
 
@@ -34,18 +35,21 @@ public class MainActivity extends AppCompatActivity {
     TextView tvLatitude;
     TextView tvLongitude;
     EditText phoneNumber;
-
     private LocationManager ubication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { //Método OnCreate
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tvLatitude = (TextView) findViewById(R.id.tvLatitude);
+        tvLongitude = (TextView) findViewById(R.id.tvLongitude);
+        phoneNumber = (EditText) findViewById(R.id.phoneNumber);
+        requestPermission();
+
     }
 
     public void pushed(View v) {
-        tvLatitude = (TextView) findViewById(R.id.tvLatitude);
-        tvLongitude = (TextView) findViewById(R.id.tvLongitude);
         if (localization() != null){
             double[] ubication = localization();
             tvLatitude.setText("" + ubication[0]);
@@ -54,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Nullable
     private double[] localization() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             ubication = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location loc = ubication.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             double[] ubication = new double[2];
@@ -75,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
     private void sendSMS(double Latitude, double Longitude) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
 
-            phoneNumber = (EditText) findViewById(R.id.phoneNumber);
             String phNumber = phoneNumber.getText().toString().trim();
             String SMS =
                     "UBICACION\n" +
                             "Latitud:     " + Latitude + "\n" +
-                            "Longitud:    " + Longitude;
+                            "Longitud:    " + Longitude + "\n\n" +
+                             "https://www.google.com/maps/place/" + Latitude + "," + Longitude;
 
             try {
                 SmsManager smsManager = SmsManager.getDefault();
@@ -100,13 +104,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{READ_SMS, READ_PHONE_NUMBERS, READ_PHONE_STATE, SEND_SMS, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION}, 100);
-            }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "Permission not granted!");
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    125);
+
         }
-
-
     }
+
+}
 
 
 
