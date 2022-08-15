@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity<ubication> extends AppCompatActivity {
 
     TextView tvLatitude;
     TextView tvLongitude;
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     LocationManager locationManager;
     Context context;
+    String[] ubication = new String[2];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { //OnCreate Method
@@ -47,11 +49,16 @@ public class MainActivity extends AppCompatActivity {
         locationManager = (LocationManager) MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
     }
 
+    protected void onResume(){
+        super.onResume();
+        getLocation();
+    }
+
     public void pushed(View v){
         requestPermission();
         if (isLocationEnabled(this)){
             getLocation();
-            sendSMS(tvLatitude.toString().trim(),tvLongitude.toString().trim());
+            sendSMS(tvLatitude.getText().toString().trim(),tvLongitude.getText().toString().trim());
         }
 
     }
@@ -62,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
             LocationListener locationListener= new LocationListener() {
                 public void onLocationChanged(Location location) {
                     //called when a new location is found by the network location provider
+
                     tvLatitude.setText(""+location.getLatitude());
                     tvLongitude.setText(""+location.getLongitude());
+
                 }
                 public void onStatusChanged(String provider, int status, Bundle extras) {
                 }
