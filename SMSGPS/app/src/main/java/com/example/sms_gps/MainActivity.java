@@ -1,18 +1,25 @@
 package com.example.sms_gps;
 
-import static android.content.ContentValues.TAG;
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.SEND_SMS;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.SmsManager;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
     TextView tvLongitude;
     EditText phoneNumber;
 
+    LocationManager locationManager;
+    Context context;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) { //Método OnCreate
+    protected void onCreate(Bundle savedInstanceState) { //OnCreate Method
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -34,37 +44,60 @@ public class MainActivity extends AppCompatActivity {
         tvLongitude = findViewById(R.id.tvLongitude);
         phoneNumber = findViewById(R.id.phoneNumber);
         requestPermission();
+        locationManager = (LocationManager) MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
+    }
+
+    public void pushed(View v){
+        requestPermission();
+        if (isLocationEnabled(this)){
+            getLocation();
+            sendSMS(tvLatitude.toString().trim(),tvLongitude.toString().trim());
+        }
 
     }
 
-    public void pushed(View v) {
-        if (localization() != null){
-            double[] ubicationArray = localization();
-            tvLatitude.setText((int) ubicationArray[0]);
-            tvLongitude.setText("" + ubicationArray[1]);
-            sendSMS(ubicationArray[0], ubicationArray[1]);
+    public void getLocation() {
+        //Acquire a reference to the system location manager
+            //Define a listener that responds to location updates
+            LocationListener locationListener= new LocationListener() {
+                public void onLocationChanged(Location location) {
+                    //called when a new location is found by the network location provider
+                    tvLatitude.setText(""+location.getLatitude());
+                    tvLongitude.setText(""+location.getLongitude());
+                }
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+                public void onProviderEnabled(String provider) {
+                }
+                public void onProviderDisabled(String provider) {
+                }
+
+            };
+            // Register the listener with the location manager to receive location updates
+            int permissionCheck= ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
+    }
+
+    public static boolean isLocationEnabled(Context context) {
+        int locationMode = 0;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return locationMode != Settings.Secure.LOCATION_MODE_OFF;
+        }else{
+            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return !TextUtils.isEmpty(locationProviders);
         }
     }
 
-    private double[] localization() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            LocationManager ubication1 = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Location loc = ubication1.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            double[] ubication = new double[2];
-            ubication[0] = loc.getLatitude();
-            ubication[1] = loc.getLongitude();
-            return ubication;
-        }else {
-            // Ask for permission
-            requestPermission();
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-
-        }
-        return null;
-    }
-
-    private void sendSMS(double Latitude, double Longitude) {
+    private void sendSMS(String Latitude, String Longitude) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
 
             String phNumber = phoneNumber.getText().toString().trim();
@@ -92,21 +125,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestPermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.e(TAG, "Permission not granted!");
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    125);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{SEND_SMS, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION}, 100);
         }
     }
-
 }
-
-
-
-
-
-
-
-
