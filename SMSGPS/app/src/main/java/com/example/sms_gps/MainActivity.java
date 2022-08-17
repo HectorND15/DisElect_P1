@@ -4,13 +4,13 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.SEND_SMS;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -26,16 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity<ubication> extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     TextView tvLatitude;
     TextView tvLongitude;
     EditText phoneNumber;
-
     LocationManager locationManager;
-    Context context;
-    String[] ubication = new String[2];
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { //OnCreate Method
@@ -44,47 +40,54 @@ public class MainActivity<ubication> extends AppCompatActivity {
 
         tvLatitude = findViewById(R.id.tvLatitude);
         tvLongitude = findViewById(R.id.tvLongitude);
-        phoneNumber = findViewById(R.id.phoneNumber);
+        phoneNumber = findViewById(R.id.ipAddress);
+
         requestPermission();
         locationManager = (LocationManager) MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
+        GetLatLon();
     }
 
     protected void onResume(){
         super.onResume();
-        getLocation();
+        GetLatLon();
+    }
+
+
+    public void Switch(View v){
+        Intent i = new Intent(this, LocationIP.class); //Intención para cambiar hacia el otro activity
+        startActivity(i);
     }
 
     public void pushed(View v){
         requestPermission();
         if (isLocationEnabled(this)){
-            getLocation();
             sendSMS(tvLatitude.getText().toString().trim(),tvLongitude.getText().toString().trim());
         }
 
     }
 
-    public void getLocation() {
+    public void GetLatLon(){
         //Acquire a reference to the system location manager
-            //Define a listener that responds to location updates
-            LocationListener locationListener= new LocationListener() {
-                public void onLocationChanged(Location location) {
-                    //called when a new location is found by the network location provider
+        //Define a listener that responds to location updates
+        LocationListener locationListener= new LocationListener() {
+            public void onLocationChanged(Location location) {
+                //called when a new location is found by the network location provider
+                tvLatitude.setText(""+location.getLatitude());
+                tvLongitude.setText(""+location.getLongitude());
 
-                    tvLatitude.setText(""+location.getLatitude());
-                    tvLongitude.setText(""+location.getLongitude());
+            }
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+            public void onProviderEnabled(String provider) {
+            }
+            public void onProviderDisabled(String provider) {
+            }
 
-                }
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-                }
-                public void onProviderEnabled(String provider) {
-                }
-                public void onProviderDisabled(String provider) {
-                }
+        };
+        // Register the listener with the location manager to receive location updates
+        int permissionCheck= ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
 
-            };
-            // Register the listener with the location manager to receive location updates
-            int permissionCheck= ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
     }
 
     public static boolean isLocationEnabled(Context context) {

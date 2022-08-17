@@ -19,8 +19,8 @@
         <entry key="app/src/main/res/drawable/ic_ip_address_svgrepo_com.xml" value="0.213" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.213" />
         <entry key="app/src/main/res/drawable/ic_phone_24.xml" value="0.213" />
-        <entry key="app/src/main/res/layout/activity_location_ip.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_location_ip.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
       </map>
     </option>
   </component>
