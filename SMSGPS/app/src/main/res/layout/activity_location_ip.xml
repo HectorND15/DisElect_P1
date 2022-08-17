@@ -8,6 +8,29 @@
     android:backgroundTint="#F1AF49"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/phoneNumber2"
+        android:layout_width="202dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="28dp"
+        android:drawableStart="@drawable/ic_baseline_door"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:hint="@string/puerto_txt"
+        android:hyphenationFrequency="none"
+        android:inputType="phone"
+        android:minLines="6"
+        android:textAlignment="center"
+        android:textColor="#324a5e"
+        android:textColorHint="#324a5e"
+
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="245dp"
@@ -52,19 +75,19 @@
         android:id="@+id/phoneNumber"
         android:layout_width="290dp"
         android:layout_height="60dp"
-        android:layout_marginTop="132dp"
-        android:drawableStart="@drawable/ic_phone_24"
+        android:layout_marginTop="28dp"
+        android:drawableStart="@drawable/ic_baseline_place"
         android:ems="10"
         android:fontFamily="monospace"
-        android:hint="@string/txt_phone_number"
+        android:hint="@string/txt_ipadress"
         android:hyphenationFrequency="none"
         android:inputType="phone"
         android:minLines="6"
         android:textAlignment="center"
         android:textColor="#324a5e"
         android:textColorHint="#324a5e"
-        android:textSize="20sp"
 
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -133,28 +156,61 @@
         android:id="@+id/switch_activity"
         android:layout_width="114dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="16dp"
-        android:drawableStart="@drawable/ic_baseline_mail"
+        android:layout_marginBottom="12dp"
+        android:drawableStart="@drawable/ic_baseline_public"
         android:fontFamily="monospace"
-        android:text="@string/switch1_txt"
+        android:text="@string/switch2_txt"
         android:textAlignment="center"
         android:textColor="#324a5e"
         android:textColorHint="#324a5e"
+        android:textOff="@string/switch1_txt"
+        android:textOn="@string/switch2_txt"
+
         android:textSize="21sp"
         android:textStyle="bold"
-
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="831dp" />
+        app:layout_constraintGuide_begin="20dp" />
+
+    <RadioGroup
+        android:layout_width="100dp"
+        android:layout_height="93dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber2">
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="@string/TCP_txt"
+            android:textColor="#324a5e"
+            android:textColorHint="#324a5e"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="@string/UDP_txt"
+            android:textColor="#324a5e"
+            android:textColorHint="#324a5e"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

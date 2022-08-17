@@ -2,5 +2,16 @@
     <string name="app_name">SMS-GPS</string>
     <string name="txt_button">Enviar</string>
     <string name="txt_phone_number">Número de Teléfono</string>
+    <string name="latitud_txt">Latitud</string>
+    <string name="longitud_txt">Longitud</string>
+    <string name="switch1_txt">SMS</string>
+    <string name="switch2_txt">IP</string>
+    <string name="txt_ipadress">Dirección IP</string>
+    <string name="puerto_txt">Puerto</string>
+    <string name="TCP_txt">TCP</string>
+    <string name="UDP_txt">UDP</string>
+
+
+
 
 </resources>
