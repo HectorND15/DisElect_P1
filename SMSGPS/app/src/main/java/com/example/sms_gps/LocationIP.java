@@ -26,6 +26,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 
 
@@ -37,7 +40,8 @@ public class LocationIP extends AppCompatActivity {
     private EditText portNumber;
     private LocationManager locationManager1;
     private RadioButton tcp, udp;
-    TCP myThread;
+    TCP myThreadTcp;
+    UDP udpMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +57,8 @@ public class LocationIP extends AppCompatActivity {
         tcp = findViewById(R.id.tcp_rbtn);
         udp = findViewById(R.id.udp_rbtn);
 
-        myThread = new TCP();
-        new Thread(myThread).start();
+        myThreadTcp = new TCP();
+        new Thread(myThreadTcp).start();
         locationManager1 = (LocationManager) LocationIP.this.getSystemService(Context.LOCATION_SERVICE);
 
     }
@@ -120,27 +124,41 @@ public class LocationIP extends AppCompatActivity {
             }
         }
 
-        public void sendMsg(String msg, String host, int port){
+        public void sendMsgTcp(String msg, String host, int port){
             this.msg = msg;
             this.host = host;
             this.port = port;
             run();
         }
-
     }
 
     public void pushed1(View v){
-        String msg = "" + tvLatitude1.getText().toString() + ":" + tvLongitude1.getText().toString();
-        String host = ipAddress.getText().toString();
-        int port = Integer.parseInt(portNumber.getText().toString());
-        if(tcp.isChecked()){
-            myThread.sendMsg(msg,host,port);
-            Toast.makeText(this, "¡Paquete TCP enviado!", Toast.LENGTH_SHORT).show();
-        } else if(udp.isChecked()){
-
-            Toast.makeText(this, "¡Paquete UDP enviado!", Toast.LENGTH_SHORT).show();
-            
+        GetLatLon();
+        String host = ipAddress.getText().toString().trim();
+        String portString = portNumber.getText().toString().trim();
+        if (!host.matches("") || !portString.matches("")) {
+            String msg = "lat: " + tvLatitude1.getText().toString() + "\nlon: " + tvLongitude1.getText().toString();
+            int port = Integer.parseInt(portString);
+            if (tcp.isChecked()) {
+                try {
+                    myThreadTcp.sendMsgTcp(msg, host, port);
+                    Toast.makeText(this, "¡Paquete TCP ENVIADO!", Toast.LENGTH_SHORT).show();
+                } catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(this, "Error al enviar TCP", Toast.LENGTH_SHORT).show();
+                }
+            } else if (udp.isChecked()) {
+                udpMsg = new UDP(host,port);
+                try {
+                    udpMsg.execute(msg);
+                    Toast.makeText(this, "¡Paquete UDP ENVIADO!", Toast.LENGTH_SHORT).show();
+                } catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(this, "ERROR al enviar UDP", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else{
+            Toast.makeText(this, "Digite IP y Puerto", Toast.LENGTH_SHORT).show();
         }
-
     }
 }
