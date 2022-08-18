@@ -20,6 +20,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
 
 public class LocationIP extends AppCompatActivity {
 
@@ -41,7 +46,6 @@ public class LocationIP extends AppCompatActivity {
         locationManager1 = (LocationManager) LocationIP.this.getSystemService(Context.LOCATION_SERVICE);
 
     }
-
 
     public void Switch(View v){
         Intent i = new Intent(this, MainActivity.class); //Intención para cambiar hacia el otro activity
@@ -78,5 +82,28 @@ public class LocationIP extends AppCompatActivity {
 
     }
 
+    public void Client(View v){
+        if(ipAddress.getText().toString() != "" && portNumber.getText().toString() != "") {
+            final String Host = ipAddress.getText().toString();
+            final int port = Integer.parseInt(portNumber.getText().toString());
+            DataInputStream in;
+            DataOutputStream out;
+            try {
+
+                Socket sc = new Socket(Host,port);
+                in = new DataInputStream(sc.getInputStream());
+                out = new DataOutputStream(sc.getOutputStream());
+                out.writeUTF("¡Hola mundo desde el cliente!");
+                String mensaje =  in.readUTF();
+                System.out.println(mensaje);
+                sc.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else{
+            Toast.makeText(this, "Digite una IP y Puerto Válido", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFD05B"
     android:backgroundTint="#F1AF49"
-    tools:context=".MainActivity">
+    tools:context=".LocationIP">
 
     <EditText
         android:id="@+id/portNumber"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="monospace"
-        android:onClick="pushed"
+        android:onClick="Client"
         android:text="@string/txt_button"
 
         android:textColor="#FFFFFF"
