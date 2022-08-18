@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="monospace"
-        android:onClick="Client"
+        android:onClick="pushed1"
         android:text="@string/txt_button"
 
         android:textColor="#FFFFFF"

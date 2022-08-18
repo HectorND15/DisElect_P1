@@ -2,6 +2,8 @@ package com.example.sms_gps;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.SEND_SMS;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{SEND_SMS, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION}, 100);
+            requestPermissions(new String[]{SEND_SMS, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, INTERNET, READ_EXTERNAL_STORAGE}, 100);
         }
     }
 }
