@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +31,13 @@ import java.net.Socket;
 
 public class LocationIP extends AppCompatActivity {
 
-    TextView tvLatitude1;
-    TextView tvLongitude1;
-    EditText ipAddress;
-    EditText portNumber;
-    LocationManager locationManager1;
-    MyThread myThread;
+    private TextView tvLatitude1;
+    private TextView tvLongitude1;
+    private EditText ipAddress;
+    private EditText portNumber;
+    private LocationManager locationManager1;
+    private RadioButton tcp, udp;
+    TCP myThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,10 @@ public class LocationIP extends AppCompatActivity {
         tvLongitude1 = findViewById(R.id.tvLongitude);
         ipAddress = findViewById(R.id.ipAddress);
         portNumber = findViewById(R.id.portNumber);
-        myThread = new MyThread();
+        tcp = findViewById(R.id.tcp_rbtn);
+        udp = findViewById(R.id.udp_rbtn);
+
+        myThread = new TCP();
         new Thread(myThread).start();
         locationManager1 = (LocationManager) LocationIP.this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -92,7 +97,7 @@ public class LocationIP extends AppCompatActivity {
 
     }
 
-    private class MyThread implements Runnable {
+    private class TCP implements Runnable {
 
         private volatile String msg="";
         Socket socket;
@@ -128,6 +133,14 @@ public class LocationIP extends AppCompatActivity {
         String msg = "" + tvLatitude1.getText().toString() + ":" + tvLongitude1.getText().toString();
         String host = ipAddress.getText().toString();
         int port = Integer.parseInt(portNumber.getText().toString());
-        myThread.sendMsg(msg,host,port);
+        if(tcp.isChecked()){
+            myThread.sendMsg(msg,host,port);
+            Toast.makeText(this, "¡Paquete TCP enviado!", Toast.LENGTH_SHORT).show();
+        } else if(udp.isChecked()){
+
+            Toast.makeText(this, "¡Paquete UDP enviado!", Toast.LENGTH_SHORT).show();
+            
+        }
+
     }
 }

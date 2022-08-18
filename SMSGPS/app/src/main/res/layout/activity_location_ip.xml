@@ -24,7 +24,7 @@
         android:textColor="#324a5e"
         android:textColorHint="#324a5e"
 
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -68,9 +68,11 @@
         android:typeface="normal"
         app:icon="@drawable/ic_baseline_send"
         app:iconPadding="@dimen/cardview_compat_inset_shadow"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.116" />
 
     <EditText
         android:id="@+id/ipAddress"
@@ -88,7 +90,7 @@
         android:textColor="#324a5e"
 
         android:textColorHint="#324a5e"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -96,9 +98,10 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="265dp"
         android:layout_height="54dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -194,7 +197,7 @@
         app:layout_constraintTop_toBottomOf="@+id/portNumber">
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/tcp_rbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -206,7 +209,7 @@
             android:textStyle="bold" />
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/udp_rbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
