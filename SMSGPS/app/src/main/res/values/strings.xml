@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GPS Logging</string>
-    <string name="txt_button">Enviar</string>
+    <string name="txt_button">Iniciar</string>
+    <string name="txt_button1">Detener</string>
     <string name="txt_phone_number">Número de Teléfono</string>
     <string name="latitud_txt">Latitud</string>
     <string name="longitud_txt">Longitud</string>

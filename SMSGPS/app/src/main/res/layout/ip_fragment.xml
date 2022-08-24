@@ -101,11 +101,12 @@
             android:id="@+id/textView13"
             android:layout_width="215dp"
             android:layout_height="35dp"
-            android:layout_marginBottom="128dp"
+            android:layout_marginBottom="124dp"
             android:text="@string/protocol"
+            android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold|italic"
-            app:layout_constraintBottom_toTopOf="@+id/send"
+            app:layout_constraintBottom_toBottomOf="@+id/send"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -113,7 +114,7 @@
             android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="116dp"
+            android:layout_marginBottom="184dp"
             android:backgroundTint="@color/secondaryColor"
             android:fontFamily="monospace"
 
@@ -129,6 +130,28 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/send2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="136dp"
+            android:backgroundTint="@color/secondaryColor"
+
+            android:fontFamily="monospace"
+            android:onClick="pushed1"
+            android:text="@string/txt_button1"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:typeface="normal"
+            app:cornerRadius="30dp"
+            app:icon="@drawable/stop_circle"
+            app:iconPadding="@dimen/cardview_compat_inset_shadow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/send" />
 
         <TableLayout
             android:id="@+id/tableLayout1"
@@ -188,6 +211,28 @@
             </TableRow>
 
         </TableLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="409dp"
+            android:layout_height="3dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.746" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="409dp"
+            android:layout_height="3dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+            app:layout_constraintVertical_bias="0.136" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

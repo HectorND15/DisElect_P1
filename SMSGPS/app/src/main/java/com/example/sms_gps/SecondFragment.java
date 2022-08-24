@@ -1,5 +1,7 @@
 package com.example.sms_gps;
 
+import static java.lang.Thread.sleep;
+
 import android.Manifest;
 import android.content.Context;
 import android.location.Location;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -77,10 +80,10 @@ public class SecondFragment extends Fragment {
     private TextView tvLongitude1;
     private TextView tvIpNum;
     private TextView tvPorNum;
-    private EditText ipAddress;
     private LocationManager locationManager1;
     private Spinner spinner;
-    SecondFragment.TCP myThreadTcp;
+    private Button enviar2;
+    private Button stop;
 
 
     //LocationIP.TCP myThreadTcp;
@@ -94,9 +97,48 @@ public class SecondFragment extends Fragment {
 
         tvLatitude1 = root.findViewById(R.id.tvLatitude);
         tvLongitude1 = root.findViewById(R.id.tvLongitude);
-        ipAddress = root.findViewById(R.id.ipAddress);
         tvIpNum = root.findViewById(R.id.ipValue);
         tvPorNum = root.findViewById(R.id.portValue);
+
+        enviar2 = root.findViewById(R.id.send);
+        enviar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                while (true) {
+                    GetLatLon();
+                    String host = tvIpNum.getText().toString().trim();
+                    String portString = tvPorNum.getText().toString().trim();
+                    if (!host.matches("") || !portString.matches("")) {
+                        String msg = "\nlat: " + tvLatitude1.getText().toString() + "\nlon: " + tvLongitude1.getText().toString();
+                        int port = Integer.parseInt(portString);
+
+                        udpMsg = new UDP(host, port);
+                        try {
+                            udpMsg.execute(msg);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "ERROR al enviar UDP", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        try {
+                            sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Digite IP y Puerto", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });;
+
+        stop = root.findViewById(R.id.send2);
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Envío detenido", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         spinner = root.findViewById(R.id.spinner1);
         String [] webServers = {
@@ -113,7 +155,7 @@ public class SecondFragment extends Fragment {
                     tvIpNum.setText("192.168.20.102");
                     tvPorNum.setText("23565");
                 }else if (spinnerValue=="Héctor"){
-                    tvIpNum.setText("192.168.20.115");
+                    tvIpNum.setText("10.20.42.157");
                     tvPorNum.setText("44444");
                 }
             }
@@ -124,8 +166,6 @@ public class SecondFragment extends Fragment {
             }
         });
 
-        myThreadTcp = new TCP();
-        new Thread(myThreadTcp).start();
         locationManager1 = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         return root;
     }
@@ -159,41 +199,6 @@ public class SecondFragment extends Fragment {
         // Register the listener with the location manager to receive location updates
         int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
         locationManager1.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-
     }
-
-    private class TCP implements Runnable {
-
-        private volatile String msg="";
-        Socket socket;
-        DataOutputStream dos;
-        private volatile int port;
-        private volatile String host="";
-
-
-        @Override
-        public void run() {
-            try {
-                socket = new Socket(host,port);
-                dos = new DataOutputStream(socket.getOutputStream());
-                dos.writeUTF(msg);
-                dos.close();
-                dos.flush();
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void sendMsgTcp(String msg, String host, int port){
-            this.msg = msg;
-            this.host = host;
-            this.port = port;
-            run();
-        }
-    }
-
-
-
 
 }
