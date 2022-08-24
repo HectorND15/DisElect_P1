@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/ipAddress"
+            android:layout_width="290dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="136dp"
+            android:drawableStart="@drawable/ic_phone_24"
+            android:ems="10"
+            android:fontFamily="monospace"
+            android:hint="@string/txt_phone_number"
+            android:hyphenationFrequency="none"
+            android:inputType="phone"
+            android:minLines="6"
+            android:textAlignment="center"
+            android:textColor="#324a5e"
+            android:textColorHint="#324a5e"
+
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tableLayout2"
+            android:layout_width="265dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="132dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/send">
+
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/latitud_txt"
+                android:textColor="#6d0c10"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvLatitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="22dp"
+                tools:layout_conversion_absoluteWidth="76dp" />
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/longitud_txt"
+                android:textColor="#6d0c10"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvLongitude"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:layout_conversion_absoluteHeight="22dp"
+                tools:layout_conversion_absoluteWidth="76dp" />
+
+            <TextView
+                android:id="@+id/tvLatitude"
+                android:layout_width="149dp"
+                android:layout_height="22dp"
+                android:fontFamily="monospace"
+                android:textAlignment="textEnd"
+                android:textColor="#6d0c10"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLongitude"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textAlignment="textEnd"
+                android:textColor="#6d0c10"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLatitude" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="212dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:fontFamily="monospace"
+            android:onClick="pushed"
+            android:text="@string/txt_button"
+
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:typeface="normal"
+            app:cornerRadius="30dp"
+            app:icon="@drawable/ic_baseline_send"
+            app:iconPadding="@dimen/cardview_compat_inset_shadow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ipAddress"
+            app:layout_constraintVertical_bias="0.152" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

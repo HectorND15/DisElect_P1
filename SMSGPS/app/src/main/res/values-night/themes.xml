@@ -1,16 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SMSGPS" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.SMSGPS" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#324a5e</item>
-        <item name="colorPrimaryVariant">#324a5e</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/secondaryColor</item>
+        <item name="colorPrimaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#324A5E</item>
-        <item name="colorSecondaryVariant">#324A5E</item>
-        <item name="colorOnSecondary">#707070</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/secondaryDarkColor</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

@@ -17,8 +17,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,26 +39,39 @@ public class LocationIP extends AppCompatActivity {
 
     private TextView tvLatitude1;
     private TextView tvLongitude1;
+    private TextView tvIpNum;
+    private TextView tvPorNum;
     private EditText ipAddress;
-    private EditText portNumber;
     private LocationManager locationManager1;
-    private RadioButton tcp, udp;
+    private CheckBox tcp, udp;
+    private Spinner spinner;
     TCP myThreadTcp;
     UDP udpMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location_ip);
+        /*setContentView(R.layout.activity_location_ip);*/
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        tvLatitude1 = findViewById(R.id.tvLatitude);
+        /*tvLatitude1 = findViewById(R.id.tvLatitude);
         tvLongitude1 = findViewById(R.id.tvLongitude);
+        tvPorNum = findViewById(R.id.tvPortNum);
+        tvIpNum = findViewById(R.id.tvIpNum);
         ipAddress = findViewById(R.id.ipAddress);
-        portNumber = findViewById(R.id.portNumber);
         tcp = findViewById(R.id.tcp_rbtn);
         udp = findViewById(R.id.udp_rbtn);
+        spinner = findViewById(R.id.spinner);*/
+
+        String []  servers= {
+                "Seleccione un Web Server",
+                "Casa 1:",
+                "Casa 2:",
+                "Custom"};
+        ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, servers);
+        spinner.setAdapter(adapter);
+
 
         myThreadTcp = new TCP();
         new Thread(myThreadTcp).start();
@@ -63,10 +79,6 @@ public class LocationIP extends AppCompatActivity {
 
     }
 
-    public void Switch(View v) {
-        Intent i = new Intent(this, MainActivity.class); //Intención para cambiar hacia el otro activity
-        startActivity(i);
-    }
 
     protected void onResume() {
         super.onResume();
@@ -135,7 +147,7 @@ public class LocationIP extends AppCompatActivity {
     public void pushed1(View v){
         GetLatLon();
         String host = ipAddress.getText().toString().trim();
-        String portString = portNumber.getText().toString().trim();
+        /*String portString = portNumber.getText().toString().trim();
         if (!host.matches("") || !portString.matches("")) {
             String msg = "lat: " + tvLatitude1.getText().toString() + "\nlon: " + tvLongitude1.getText().toString();
             int port = Integer.parseInt(portString);
@@ -159,6 +171,6 @@ public class LocationIP extends AppCompatActivity {
             }
         } else{
             Toast.makeText(this, "Digite IP y Puerto", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 }

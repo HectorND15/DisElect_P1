@@ -3,24 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
-        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2165" />
-        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.2165" />
-        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2165" />
-        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_phone_24.xml" value="0.2165" />
-        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/layout/activity_main.xml" value="0.75" />
-        <entry key="..\:/Users/hecto/OneDrive/Documentos/DisElect_P1/SMSGPS/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.213" />
-        <entry key="app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.213" />
-        <entry key="app/src/main/res/drawable/ic_baseline_mail.xml" value="0.213" />
-        <entry key="app/src/main/res/drawable/ic_baseline_public.xml" value="0.213" />
-        <entry key="app/src/main/res/drawable/ic_baseline_send.xml" value="0.213" />
-        <entry key="app/src/main/res/drawable/ic_baseline_sms.xml" value="0.213" />
-        <entry key="app/src/main/res/drawable/ic_ip_address_svgrepo_com.xml" value="0.213" />
-        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.213" />
-        <entry key="app/src/main/res/drawable/ic_phone_24.xml" value="0.213" />
-        <entry key="app/src/main/res/layout/activity_location_ip.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_baseline_mail.xml" value="0.17" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2075" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/drawable/ic_phone_24.xml" value="0.2075" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/drawable/sms_icon.xml" value="0.2075" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/layout/activity_location_ip.xml" value="0.33" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/layout/fragment_main.xml" value="0.209375" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/layout/fragment_second.xml" value="0.33" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/layout/ip_fragment.xml" value="0.27845884413309985" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/layout/list_items.xml" value="0.33" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/layout/sms_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/hdita/StudioProjects/DisElect_P1/SMSGPS/app/src/main/res/layout/spinner_item.xml" value="0.20833333333333334" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
   </component>
