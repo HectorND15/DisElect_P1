@@ -71,18 +71,20 @@
 
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabIp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_baseline_public"
+            android:text="IP" />
+
+        <com.google.android.material.tabs.TabItem
             android:id="@+id/tabSms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/sms_icon"
             android:text="SMS" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabIp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_baseline_public"
-            android:text="IP" />
+
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager

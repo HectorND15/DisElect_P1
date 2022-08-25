@@ -10,7 +10,9 @@
     <string name="GTA">GLA</string>
     <string name="GTA_meanin">GPS Logging App</string>
     <string name="ws">Web Server:</string>
-    <string name="protocol">PROTOCOLO UDP</string>
+    <string name="protocol">*PROTOCOLO UDP*</string>
+    <string name="Time">Hora</string>
+    <string name="Date">Fecha</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 

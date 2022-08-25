@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,20 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ThemedSpinnerAdapter;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,14 +83,11 @@ public class SecondFragment extends Fragment {
         }
     }
 
-    private TextView tvLatitude1;
-    private TextView tvLongitude1;
-    private TextView tvIpNum;
-    private TextView tvPorNum;
+    private TextView tvLatitude1, tvLongitude1, tvIpNum, tvPorNum, tvTime, tvDate;
     private LocationManager locationManager1;
     private Spinner spinner;
-    private Button enviar2;
-    private Button stop;
+    private ToggleButton enviar1;
+
 
 
     //LocationIP.TCP myThreadTcp;
@@ -95,55 +99,42 @@ public class SecondFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.ip_fragment, container, false);
 
+
         tvLatitude1 = root.findViewById(R.id.tvLatitude);
         tvLongitude1 = root.findViewById(R.id.tvLongitude);
         tvIpNum = root.findViewById(R.id.ipValue);
         tvPorNum = root.findViewById(R.id.portValue);
+        tvTime = root.findViewById(R.id.tvTime);
+        tvDate = root.findViewById(R.id.tvDate);
 
-        enviar2 = root.findViewById(R.id.send);
-        enviar2.setOnClickListener(new View.OnClickListener() {
+        UDPSender udpSender = new UDPSender();
+        Thread hiloUDP = new Thread(udpSender, "The Thread");
+
+        enviar1 = root.findViewById(R.id.toggleButton);
+        enviar1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                while (true) {
-                    GetLatLon();
-                    String host = tvIpNum.getText().toString().trim();
-                    String portString = tvPorNum.getText().toString().trim();
-                    if (!host.matches("") || !portString.matches("")) {
-                        String msg = "\nlat: " + tvLatitude1.getText().toString() + "\nlon: " + tvLongitude1.getText().toString();
-                        int port = Integer.parseInt(portString);
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b)  {
+                Log.d("myTag", String.valueOf(hiloUDP.getState()));
+                if(!b){
+                    try{
+                        udpSender.requestStop();
+                    } catch (Exception ignore){
 
-                        udpMsg = new UDP(host, port);
-                        try {
-                            udpMsg.execute(msg);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Toast.makeText(getContext(), "ERROR al enviar UDP", Toast.LENGTH_SHORT).show();
-                            break;
-                        }
-                        try {
-                            sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Digite IP y Puerto", Toast.LENGTH_SHORT).show();
                     }
+                    Log.d("myTag","request stop UDP");
+                    }
+                else {
+                    Thread hiloUDP1 = new Thread(udpSender, "The Thread");
+                    udpSender.requestStart();
+                    hiloUDP1.start();
                 }
-            }
-        });;
-
-        stop = root.findViewById(R.id.send2);
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Envío detenido", Toast.LENGTH_SHORT).show();
             }
         });
 
         spinner = root.findViewById(R.id.spinner1);
         String [] webServers = {
                 "Isabella",
-                "Héctor"
+                "Hector"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(root.getContext(), R.layout.spinner_item,webServers);
         spinner.setAdapter(adapter);
@@ -154,7 +145,7 @@ public class SecondFragment extends Fragment {
                 if (spinnerValue == "Isabella"){
                     tvIpNum.setText("192.168.20.102");
                     tvPorNum.setText("23565");
-                }else if (spinnerValue=="Héctor"){
+                }else if (spinnerValue=="Hector"){
                     tvIpNum.setText("10.20.42.157");
                     tvPorNum.setText("44444");
                 }
@@ -167,8 +158,60 @@ public class SecondFragment extends Fragment {
         });
 
         locationManager1 = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        GetLatLon();
         return root;
     }
+
+
+    private class UDPSender implements Runnable {
+        private boolean stopRequested = false;
+
+        public synchronized void requestStop() {
+            this.stopRequested = true;
+        }
+
+        public synchronized void requestStart() {
+            this.stopRequested = false;
+        }
+
+        public synchronized boolean isStopRequested() {
+            return this.stopRequested;
+        }
+
+        private void sleep(long millis) {
+            try {
+                Thread.sleep(millis);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void run() {
+            Log.d("myTag","enviando paquetes UDP");
+            while (!isStopRequested()) {
+                sleep((3000));
+                String host = tvIpNum.getText().toString().trim();
+                String portString = tvPorNum.getText().toString().trim();
+                String msg = "lat:\n" + tvLatitude1.getText().toString() + "\n" + tvLongitude1.getText().toString() +
+                        "\n"+ tvTime.getText().toString() + "\n" + tvDate.getText().toString();
+                int port = Integer.parseInt(portString);
+
+                udpMsg = new UDP(host, port);
+                try {
+                    udpMsg.execute(msg);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    break;
+
+                }
+
+            }
+            Log.d("myTag", "Deteniendo envío");
+
+        }
+    }
+
 
     public void onResume() {
         super.onResume();
@@ -176,11 +219,15 @@ public class SecondFragment extends Fragment {
     }
 
     public void GetLatLon() {
-        //Acquire a reference to the system location manager
-        //Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-                //called when a new location is found by the network location provider
+
+                Date dateTime = new Date(location.getTime());
+                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                tvDate.setText(""+dateFormat.format(dateTime));
+                tvTime.setText(""+timeFormat.format(dateTime));
                 tvLatitude1.setText("" + location.getLatitude());
                 tvLongitude1.setText("" + location.getLongitude());
 

@@ -46,10 +46,10 @@
             android:id="@+id/tableLayout"
             android:layout_width="287dp"
             android:layout_height="63dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
+            app:layout_constraintTop_toBottomOf="@+id/divider">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -101,68 +101,26 @@
             android:id="@+id/textView13"
             android:layout_width="215dp"
             android:layout_height="35dp"
-            android:layout_marginBottom="124dp"
+            android:layout_marginTop="60dp"
             android:text="@string/protocol"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintBottom_toBottomOf="@+id/send"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="184dp"
-            android:backgroundTint="@color/secondaryColor"
-            android:fontFamily="monospace"
-
-            android:onClick="pushed1"
-            android:text="@string/txt_button"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:typeface="normal"
-            app:cornerRadius="30dp"
-            app:icon="@drawable/ic_baseline_send"
-            app:iconPadding="@dimen/cardview_compat_inset_shadow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/send2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="136dp"
-            android:backgroundTint="@color/secondaryColor"
-
-            android:fontFamily="monospace"
-            android:onClick="pushed1"
-            android:text="@string/txt_button1"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:typeface="normal"
-            app:cornerRadius="30dp"
-            app:icon="@drawable/stop_circle"
-            app:iconPadding="@dimen/cardview_compat_inset_shadow"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/send" />
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
         <TableLayout
             android:id="@+id/tableLayout1"
-            android:layout_width="215dp"
-            android:layout_height="54dp"
+            android:layout_width="225dp"
+            android:layout_height="108dp"
             android:layout_marginBottom="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/send"
-            app:layout_constraintVertical_bias="0.941">
+            app:layout_constraintTop_toBottomOf="@+id/toggleButton"
+            app:layout_constraintVertical_bias="0.208">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -208,6 +166,55 @@
                     android:textAlignment="textEnd"
                     android:textColor="#6d0c10"
                     android:textSize="16sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Time"
+                    android:textColor="@color/secondaryDarkColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textAlignment="textEnd"
+                    android:textColor="#6d0c10"
+                    android:textSize="16sp" />/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Date"
+                    android:textColor="@color/secondaryDarkColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textAlignment="textEnd"
+                    android:textColor="#6d0c10"
+                    android:textSize="16sp" />/>
+
             </TableRow>
 
         </TableLayout>
@@ -216,23 +223,38 @@
             android:id="@+id/divider"
             android:layout_width="409dp"
             android:layout_height="3dp"
+            android:layout_marginTop="20dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toTopOf="@+id/tableLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintVertical_bias="0.746" />
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <View
             android:id="@+id/divider2"
             android:layout_width="409dp"
             android:layout_height="3dp"
+            android:layout_marginTop="28dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toTopOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-            app:layout_constraintVertical_bias="0.136" />
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/secondaryColor"
+            android:fontFamily="monospace"
+            android:text="ToggleButton"
+            android:textAllCaps="false"
+            android:textColor="@color/secondaryTextColor"
+            android:textOff="▶ Iniciar"
+
+            android:textOn="■ Detener"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

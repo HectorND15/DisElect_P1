@@ -21,9 +21,9 @@ public class PagerController extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new MainFragment();
-            case 1:
                 return new SecondFragment();
+            case 1:
+                return new MainFragment();
             default:
                 return null;
         }
