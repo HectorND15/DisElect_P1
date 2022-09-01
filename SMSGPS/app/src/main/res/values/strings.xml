@@ -5,7 +5,7 @@
     <string name="txt_phone_number">Número de Teléfono</string>
     <string name="latitud_txt">Latitud</string>
     <string name="longitud_txt">Longitud</string>
-    <string name="IP_number">Dirección IP:</string>
+    <string name="IP_number">Dirección IP</string>
     <string name="Puerto">Puerto</string>
     <string name="GTA">GLA</string>
     <string name="GTA_meanin">GPS Logging App</string>
@@ -13,6 +13,9 @@
     <string name="protocol">*PROTOCOLO UDP*</string>
     <string name="Time">Hora</string>
     <string name="Date">Fecha</string>
+
+    <string name="casa1">IP: 181.131.4.37 \n PUERTO: 50000</string>
+    <string name="casa2">IP: 179.33.226.170 \n PUERTO: 20000</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 

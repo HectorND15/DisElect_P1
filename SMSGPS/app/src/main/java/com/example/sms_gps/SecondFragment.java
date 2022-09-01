@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +56,6 @@ public class SecondFragment extends Fragment {
     public SecondFragment() {
         // Required empty public constructor
     }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -73,7 +73,6 @@ public class SecondFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,14 +82,12 @@ public class SecondFragment extends Fragment {
         }
     }
 
-    private TextView tvLatitude1, tvLongitude1, tvIpNum, tvPorNum, tvTime, tvDate;
+    private TextView tvLatitude1, tvLongitude1, tvTime, tvDate;
+    private EditText  etIpNum, etPorNum;
     private LocationManager locationManager1;
-    private Spinner spinner;
-    private ToggleButton enviar1;
+    private ToggleButton enviar1, casa1, casa2, custom;
 
 
-
-    //LocationIP.TCP myThreadTcp;
     UDP udpMsg;
 
     @Override
@@ -99,13 +96,21 @@ public class SecondFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.ip_fragment, container, false);
 
+        etIpNum = root.findViewById(R.id.ipValue);
+        etIpNum.setInputType(InputType.TYPE_NULL);
+        etIpNum.setEnabled(false);
+        etPorNum = root.findViewById(R.id.portValue);
+        etPorNum.setInputType(InputType.TYPE_NULL);
+        etPorNum.setEnabled(false);
 
         tvLatitude1 = root.findViewById(R.id.tvLatitude);
         tvLongitude1 = root.findViewById(R.id.tvLongitude);
-        tvIpNum = root.findViewById(R.id.ipValue);
-        tvPorNum = root.findViewById(R.id.portValue);
         tvTime = root.findViewById(R.id.tvTime);
         tvDate = root.findViewById(R.id.tvDate);
+        casa1 = root.findViewById(R.id.toggleButtonCasa1);
+        casa2 = root.findViewById(R.id.toggleButtonCasa2);
+        custom = root.findViewById(R.id.toggleButtonCustom);
+
 
         UDPSender udpSender = new UDPSender();
         Thread hiloUDP = new Thread(udpSender, "The Thread");
@@ -118,44 +123,47 @@ public class SecondFragment extends Fragment {
                 if(!b){
                     try{
                         udpSender.requestStop();
-                    } catch (Exception ignore){
-
+                    } catch (Exception e){
+                        e.printStackTrace();
                     }
                     Log.d("myTag","request stop UDP");
+                    Toast.makeText(getContext(), "Detenido el envío de paquetes", Toast.LENGTH_SHORT).show();
                     }
                 else {
                     Thread hiloUDP1 = new Thread(udpSender, "The Thread");
                     udpSender.requestStart();
                     hiloUDP1.start();
+                    Toast.makeText(getContext(), "Iniciado el envío de paquetes", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        spinner = root.findViewById(R.id.spinner1);
-        String [] webServers = {
-                "Isabella",
-                "Hector"
-        };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(root.getContext(), R.layout.spinner_item,webServers);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        custom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String spinnerValue = adapterView.getItemAtPosition(i).toString();
-                if (spinnerValue == "Isabella"){
-                    tvIpNum.setText("192.168.20.102");
-                    tvPorNum.setText("23565");
-                }else if (spinnerValue=="Hector"){
-                    tvIpNum.setText("10.20.42.157");
-                    tvPorNum.setText("44444");
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    etIpNum.setEnabled(true);
+                    etPorNum.setEnabled(true);
+                    etIpNum.setInputType(InputType.TYPE_CLASS_PHONE);
+                    etPorNum.setInputType(InputType.TYPE_CLASS_PHONE);
+                    try{
+                        udpSender.requestStop();
+                        enviar1.setChecked(false);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    etIpNum.setText("");
+                    etPorNum.setText("");
+                    etIpNum.setEnabled(false);
+                    etPorNum.setEnabled(false);
+                    etIpNum.setInputType(InputType.TYPE_NULL);
+                    etPorNum.setInputType(InputType.TYPE_NULL);
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
         });
+
 
         locationManager1 = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         GetLatLon();
@@ -165,6 +173,10 @@ public class SecondFragment extends Fragment {
 
     private class UDPSender implements Runnable {
         private boolean stopRequested = false;
+        private String hostCasa1 = "181.131.4.37";
+        private int portCasa1 = 50000;
+        private String hostCasa2 = "179.33.226.170";
+        private int portCasa2 = 20000;
 
         public synchronized void requestStop() {
             this.stopRequested = true;
@@ -191,20 +203,45 @@ public class SecondFragment extends Fragment {
             Log.d("myTag","enviando paquetes UDP");
             while (!isStopRequested()) {
                 sleep((3000));
-                String host = tvIpNum.getText().toString().trim();
-                String portString = tvPorNum.getText().toString().trim();
-                String msg = "lat:\n" + tvLatitude1.getText().toString() + "\n" + tvLongitude1.getText().toString() +
+                String hostCustom = etIpNum.getText().toString().trim();
+                String portCustom =  etPorNum.getText().toString().trim();
+                String msg = tvLatitude1.getText().toString() + "\n" + tvLongitude1.getText().toString() +
                         "\n"+ tvTime.getText().toString() + "\n" + tvDate.getText().toString();
-                int port = Integer.parseInt(portString);
 
-                udpMsg = new UDP(host, port);
-                try {
-                    udpMsg.execute(msg);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    break;
 
+                if(casa1.isChecked()){
+                    udpMsg = new UDP(hostCasa1, portCasa1);
+                    try {
+                        udpMsg.execute(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        break;
+
+                    }
                 }
+                if(casa2.isChecked()){
+                    udpMsg = new UDP(hostCasa2, portCasa2);
+                    try {
+                        udpMsg.execute(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        break;
+
+                    }
+                }
+                if(custom.isChecked() & !portCustom.isEmpty()){
+                    int intPortCustom = Integer.parseInt(portCustom);
+                    udpMsg = new UDP(hostCustom, intPortCustom);
+                    try {
+                        udpMsg.execute(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        break;
+
+                    }
+                }
+
+
 
             }
             Log.d("myTag", "Deteniendo envío");
@@ -224,7 +261,7 @@ public class SecondFragment extends Fragment {
 
                 Date dateTime = new Date(location.getTime());
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
                 tvDate.setText(""+dateFormat.format(dateTime));
                 tvTime.setText(""+timeFormat.format(dateTime));

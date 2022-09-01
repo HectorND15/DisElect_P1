@@ -13,39 +13,40 @@
 
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="85dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="68dp"
-            android:text="@string/ws"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/spinner1"
-            app:layout_constraintHorizontal_bias="0.893"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="159dp"
+            android:id="@+id/textView6"
+            android:layout_width="109dp"
             android:layout_height="37dp"
-            android:layout_marginTop="76dp"
-            android:layout_marginEnd="36dp"
-            android:backgroundTint="@color/secondaryDarkColor"
-            android:backgroundTintMode="add"
-            android:spinnerMode="dropdown"
-            android:textAlignment="textEnd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck">
+            android:layout_marginTop="8dp"
+            android:text="@string/casa1"
+            android:textAlignment="center"
+            android:textColor="@color/secondaryDarkColor"
+            android:textSize="12sp"
+            android:textStyle="bold"
 
-        </Spinner>
+            app:layout_constraintEnd_toEndOf="@+id/toggleButtonCasa1"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="@+id/toggleButtonCasa1"
+            app:layout_constraintTop_toBottomOf="@+id/toggleButtonCasa1" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="109dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/casa2"
+            android:textAlignment="center"
+            android:textColor="@color/secondaryDarkColor"
+            android:textSize="12sp"
+            android:textStyle="bold"
+
+            app:layout_constraintEnd_toEndOf="@+id/toggleButtonCasa2"
+            app:layout_constraintStart_toStartOf="@+id/toggleButtonCasa2"
+            app:layout_constraintTop_toBottomOf="@+id/toggleButtonCasa2" />
 
         <TableLayout
             android:id="@+id/tableLayout"
-            android:layout_width="287dp"
-            android:layout_height="63dp"
+            android:layout_width="183dp"
+            android:layout_height="100dp"
             android:layout_marginTop="28dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,44 +56,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="124dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/IP_number"
-                    android:textColor="@color/secondaryDarkColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
+                <EditText
                     android:id="@+id/ipValue"
-                    android:layout_width="161dp"
-                    android:layout_height="27dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/secondaryColor"
-                    android:textSize="18sp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:fontFamily="monospace"
+                    android:hint="@string/IP_number"
+                    android:inputType="phone"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
             </TableRow>
 
             <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="111dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Puerto"
-                    android:textColor="@color/secondaryDarkColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
+                <EditText
                     android:id="@+id/portValue"
-                    android:layout_width="153dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/secondaryColor"
-                    android:textSize="18sp" />
+                    android:ems="10"
+                    android:fontFamily="monospace"
+                    android:hint="@string/Puerto"
+                    android:inputType="phone"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
             </TableRow>
 
         </TableLayout>
@@ -101,7 +90,7 @@
             android:id="@+id/textView13"
             android:layout_width="215dp"
             android:layout_height="35dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:text="@string/protocol"
             android:textAlignment="center"
             android:textSize="24sp"
@@ -112,8 +101,8 @@
 
         <TableLayout
             android:id="@+id/tableLayout1"
-            android:layout_width="225dp"
-            android:layout_height="108dp"
+            android:layout_width="288dp"
+            android:layout_height="109dp"
             android:layout_marginBottom="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,11 +122,13 @@
                     android:text="@string/latitud_txt"
                     android:textColor="@color/secondaryDarkColor"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+
+                    />
 
                 <TextView
                     android:id="@+id/tvLatitude"
-                    android:layout_width="144dp"
+                    android:layout_width="226dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="monospace"
                     android:textAlignment="textEnd"
@@ -227,7 +218,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         <View
             android:id="@+id/divider2"
@@ -255,6 +246,62 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonCasa1"
+            android:layout_width="86dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+
+            android:layout_marginTop="32dp"
+            android:background="@drawable/my_btn_toggle"
+            android:checked="true"
+            android:text="ToggleButton"
+            android:textColor="@color/primaryColor"
+            android:textOff="Casa 1: ✘"
+
+
+            android:textOn="Casa 1: ✔"
+            app:layout_constraintEnd_toStartOf="@+id/toggleButton4"
+            app:layout_constraintHorizontal_bias="0.096"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonCasa2"
+            android:layout_width="86dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/my_btn_toggle"
+
+            android:text="ToggleButton"
+            android:textColor="@color/primaryColor"
+            android:textOff="Casa 2: ✘"
+            android:textOn="Casa 2: ✔"
+            android:checked="true"
+
+            app:layout_constraintEnd_toStartOf="@+id/toggleButtonCustom"
+            app:layout_constraintStart_toEndOf="@+id/toggleButtonCasa1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/toggleButtonCustom"
+            android:layout_width="86dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+
+            android:background="@drawable/my_btn_toggle"
+            android:text="ToggleButton"
+            android:textColor="@color/primaryColor"
+            android:textOff="Custom: ✘"
+            android:textOn="Custom: ✔"
+            android:checked="false"
+
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
